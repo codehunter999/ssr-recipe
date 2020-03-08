@@ -64,7 +64,9 @@ module.exports = {
   testsSetup: resolveModule(resolveApp, 'src/setupTests'),
   proxySetup: resolveApp('src/setupProxy.js'),
   appNodeModules: resolveApp('node_modules'),
-  publicUrlOrPath,
+  publicUrl: getPublicUrlOrPath(resolveApp('package.json')),
+  servedPath: getPublicUrlOrPath(resolveApp('package.json')),
+  publicUrlOrPath: getPublicUrlOrPath(resolveApp('package.json')),
   ssrIndexJs: resolveApp('src/index.server.js'),  //서버 사이드 렌더링 엔트리
   ssrBuild: resolveApp('dist') //웹팩 처리 후 저장 경로
 };
