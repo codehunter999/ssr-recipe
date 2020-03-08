@@ -1,0 +1,67 @@
+리덕스 용어 정리
+1. 액션 
+  - 상태에 어떠한 변화가 필효하면 액션이 발생
+  - {
+	type: 'TOGGLE_VALUE'
+    }
+2. 액션생성함수
+  - 액션 객체를 만들어 주는 함수
+3. 리듀서
+  - 변화를 일으키는 함수 
+  - 액션을 만들어서 발생시키면 리듀서는 두개의 값을 받아옴
+    1. 현재상태
+    2. 전달받은 액션 객체
+  - 두개의 값을 참고하여 새로운상태를 만들어 반환
+  예시코드
+	cosnt initialState = {
+	  counter: 1
+	};
+	function reducer(state = initialState, action){
+	  switch(action.type){
+	    case INCREASE:
+	      return{
+	        counter: state.counter +1
+	      };
+	    default:
+	      return state;
+	  }
+	}
+4. 스토어
+  - 프로젝트에 리덕스를 적용하기 위해 만듬
+  - 한개의 프로젝트에 한개의 스토어
+  - 내장함수
+    1. 디스패치(dispatch)
+      - "액션을 발생시키는 것"
+      - dispatch(action) 형식으로 호출함 -> 호출되면 스토어는 리듀서 함수를 실행 -> 새로운 상태를 만듬
+    2. 구독(subscribe)
+      - 리스너 함수를 파라미터로 넣어서 호출
+      - 리스너 함수가 액션이 디스패치되어 상태가 업데이트 될 때마다 호출됨 
+      - 예시코드
+	const listener = () => {
+	  console.log("상태가 업데이트됨");
+	}
+	const unsubscribe = store.subscribe(listener);	
+	unsubscribe();
+
+
+
+ㅁ 리덕스 적용 순서
+  1. 리덕스 모듈 작성
+  2. 루트 리듀서 생성
+  3. 스토어 생성 
+    : import { createStore } from 'redux';
+  4. provider로 리액트 프로젝트에 리덕스 적용
+    : import { Provider } from 'react-redux';
+    : .(.....)
+      <Provider store={store}>
+  	<App/>
+      </Provider>
+
+
+
+ㅁ 리덕스 미들웨어 
+1. redux-thunk
+  - 비동기 작업을 처리할 때 가장 많이 사용하는 미들웨어
+  - 객체가 아닌 함수 형태의 액션을 디스패치
+2. redux-saga
+  - 특정 액션이 디스패치 되었을 때 정해진 로직에 따라 다른 액션을 디스패치시키는 규칙을 작성하여 비동기 작업을 처리할수 있게 해줌
