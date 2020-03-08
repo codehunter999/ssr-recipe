@@ -1,11 +1,11 @@
 import axios from "axios";
 
-//액션 선언
+//액션타입 선언
 const GET_USERS_PENDING = "users/GET_USERS_PENDING";
 const GET_USERS_SUCCESS = "users/GET_USERS_SUCCESS";
 const GET_USERS_FAILURE = "users/GET_USERS_FAILURE";
 
-//액션타입 선언
+//액션함수 선언
 const getUsersPending = () => ({ type: GET_USERS_PENDING });
 const getUsersSuccess = payload => ({ type: GET_USERS_SUCCESS, payload });
 const getUsersFailure = payload => ({
@@ -14,12 +14,12 @@ const getUsersFailure = payload => ({
   payload
 });
 
-//액션 생성합수 getUsers라는 thunk 함수는 생성
+//액션 생성합수 getUsers라는 thunk 함수를 생성
 export const getUsers = () => async dispatch => {
   try {
     dispatch(getUsersPending());
     const response = await axios.get(
-      "https://jsonplaceholder.typecode.com/users"
+      "https://jsonplaceholder.typicode.com/users"
     );
     dispatch(getUsersSuccess(response));
   } catch (e) {
